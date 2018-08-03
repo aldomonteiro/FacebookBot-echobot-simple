@@ -7,5 +7,10 @@ This **tutorial** will guide you through the whole process of creating a simple 
 For a full-feature implementation of the Facebook Messenger Bot, check out [my Optimist Prime project](https://github.com/hungtraan/FacebookBot) - voice recognition, natural language processing, restaurant search, trending news search, cloud-powered note-taking.
 
 ### Tech stack
+
+
+virtualenv -p /usr/local/bin/python3 my_p3_env
+ source my_p3_env/bin/activate
+
 1. Python Flask
 2. [Facebook Messenger API](https://developers.facebook.com/docs/messenger-platform/)
