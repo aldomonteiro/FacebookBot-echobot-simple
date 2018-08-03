@@ -8,14 +8,14 @@ from flask import Flask, request
 
 application = Flask(__name__)
 app = application
-PAT = 'replace_your_own_PAT_here'
+PAT = 'EAADzUvY8AyABAA7pZC19KOpBPVjLUpMcGpPOg6ld8VYpGwxwtdDTuIXGnWm8RWkggB5dQkxMavqHlXvoz9cQpLdhwKW4doJdkW7hgj7xhMBje3cZCoPQqZCjj1d3F8QkpHmy063QJr7i3TIwy40RYIlzGPpF0odjQo7LKrgdHmjvGDrZCepK'
 VERIFICATION_TOKEN = 'replace_your_own_token'
 
 @app.route('/', methods=['GET'])
 def handle_verification():
-    print "Handling Verification."
+    print("Handling Verification.")
     if request.args.get('hub.verify_token', '') == VERIFICATION_TOKEN:
-        print "Webhook verified!"
+        print("Webhook verified!")
         return request.args.get('hub.challenge', '')
     else:
         return "Wrong verification token!"
@@ -29,6 +29,9 @@ def handle_messages():
     for sender_id, message in messaging_events(payload):
         # Start processing valid requests
         try:
+            print("****** payload ******")
+            print(payload)
+            print("****** end payload ******")
             response = processIncoming(sender_id, message)
             
             if response is not None:
@@ -36,8 +39,8 @@ def handle_messages():
 
             else:
                 send_message(PAT, sender_id, "Sorry I don't understand that")
-        except Exception, e:
-            print e
+        except (Exception, e):
+            print(e)
             traceback.print_exc()
     return "ok"
 
@@ -70,7 +73,7 @@ def send_message(token, user_id, text):
                       }),
                       headers={'Content-type': 'application/json'})
     if r.status_code != requests.codes.ok:
-        print r.text
+        print(r.text)
 
 # Generate tuples of (sender_id, message_text) from the provided payload.
 # This part technically clean up received data to pass only meaningful data to processIncoming() function
